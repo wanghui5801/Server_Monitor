@@ -21,45 +21,42 @@ def get_server_type():
         except:
             pass
     else:
-        # Linux virtualization detection
-        virt_markers = [
-            '/proc/vz',         # OpenVZ
-            '/proc/xen',        # Xen
-            '/sys/hypervisor',  # KVM/VMware
-            '/proc/bc',         # OpenVZ
-        ]
-        
-        # Check systemd-detect-virt
+        # Linux detection - Check product name
         try:
-            import subprocess
-            result = subprocess.run(['systemd-detect-virt'], capture_output=True, text=True)
-            if result.returncode == 0 and result.stdout.strip() != 'none':
-                return "VPS"
-        except:
-            pass
-            
-        # Check dmesg for virtualization hints
-        try:
-            dmesg = subprocess.run(['dmesg'], capture_output=True, text=True)
-            if any(x in dmesg.stdout.lower() for x in ['kvm', 'xen', 'virtualbox', 'vmware']):
-                return "VPS"
-        except:
-            pass
-            
-        # Check /proc/cpuinfo for virtualization flags
-        try:
-            with open('/proc/cpuinfo') as f:
-                if any(x in f.read().lower() for x in ['hypervisor', 'vmx', 'svm']):
+            with open('/sys/class/dmi/id/product_name') as f:
+                product_name = f.read().strip().lower()
+                # Common virtualization products
+                virt_products = [
+                    'kvm',
+                    'vmware',
+                    'virtualbox',
+                    'xen',
+                    'openstack',
+                    'qemu',
+                    'amazon ec2',
+                    'google compute engine',
+                    'microsoft corporation virtual machine',
+                    'alibaba cloud ecs',
+                    'virtual machine',
+                    'bochs'
+                ]
+                
+                if any(virt in product_name for virt in virt_products):
                     return "VPS"
+                
+                # If not a known virtual machine, it's likely a dedicated server
+                return "Dedicated Server"
         except:
-            pass
-            
-        # Check virtual files
-        for marker in virt_markers:
-            if os.path.exists(marker):
-                return "VPS"
+            # Fallback to basic detection if file can't be read
+            try:
+                import subprocess
+                result = subprocess.run(['systemd-detect-virt'], capture_output=True, text=True)
+                if result.returncode == 0 and result.stdout.strip() != 'none':
+                    return "VPS"
+            except:
+                pass
     
-    # If no virtualization detected, it's a dedicated server
+    # Default to Dedicated Server if no virtualization detected
     return "Dedicated Server"
 
 def get_location():

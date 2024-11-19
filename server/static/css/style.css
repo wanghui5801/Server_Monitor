@@ -162,6 +162,13 @@ td {
 
 /* Mobile responsive styles */
 @media screen and (max-width: 768px) {
+    /* Scale down the entire table */
+    #vps-table {
+        transform: scale(0.8);
+        transform-origin: top left;
+        width: 125%; /* Compensate for the scale to maintain layout */
+    }
+
     /* Hide desktop header */
     .desktop-header {
         display: none;
@@ -190,6 +197,13 @@ td {
     /* Adjust progress bar width */
     .progress-bar {
         width: 48px;
+    }
+
+    /* Adjust container for scaled content */
+    .container {
+        overflow-x: hidden;
+        width: 100%;
+        padding: 0;
     }
 }
 

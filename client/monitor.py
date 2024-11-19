@@ -12,33 +12,68 @@ NODE_NAME = "default"
 def get_server_type():
     """Through system characteristics to determine the server type"""
     if platform.system() == "Windows":
-        # Windows uses WMI to check virtualization
         try:
             import wmi
             w = wmi.WMI()
-            # Check virtualization features
             for item in w.Win32_ComputerSystem():
                 if item.Model.lower().find('virtual') != -1:
                     return "VPS"
         except:
             pass
     else:
-        # Linux check logic
-        virtualization_markers = [
+        # Linux virtualization detection
+        virt_markers = [
             '/proc/vz',         # OpenVZ
             '/proc/xen',        # Xen
             '/sys/hypervisor',  # KVM/VMware
+            '/proc/bc',         # OpenVZ
         ]
-        for marker in virtualization_markers:
+        
+        # Check systemd-detect-virt
+        try:
+            import subprocess
+            result = subprocess.run(['systemd-detect-virt'], capture_output=True, text=True)
+            if result.returncode == 0 and result.stdout.strip() != 'none':
+                return "VPS"
+        except:
+            pass
+            
+        # Check dmesg for virtualization hints
+        try:
+            dmesg = subprocess.run(['dmesg'], capture_output=True, text=True)
+            if any(x in dmesg.stdout.lower() for x in ['kvm', 'xen', 'virtualbox', 'vmware']):
+                return "VPS"
+        except:
+            pass
+            
+        # Check /proc/cpuinfo for virtualization flags
+        try:
+            with open('/proc/cpuinfo') as f:
+                if any(x in f.read().lower() for x in ['hypervisor', 'vmx', 'svm']):
+                    return "VPS"
+        except:
+            pass
+            
+        # Check virtual files
+        for marker in virt_markers:
             if os.path.exists(marker):
                 return "VPS"
     
-    # Check CPU core count and memory size
+    # If no virtualization detected, check hardware specs
     cpu_count = psutil.cpu_count()
     total_memory = psutil.virtual_memory().total / (1024 * 1024 * 1024)  # GB
     
+    # More strict criteria for dedicated servers
     if cpu_count >= 4 and total_memory >= 8:
-        return "Dedicated Server"
+        # Additional checks for dedicated server
+        try:
+            # Check if running on bare metal
+            with open('/sys/class/dmi/id/sys_vendor') as f:
+                vendor = f.read().strip().lower()
+                if any(x in vendor for x in ['dell', 'hp', 'lenovo', 'supermicro']):
+                    return "Dedicated Server"
+        except:
+            pass
     
     return "VPS"
 

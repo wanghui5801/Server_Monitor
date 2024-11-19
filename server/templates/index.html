@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VPS Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <table id="vps-table">
+            <thead>
+                <tr class="desktop-header">
+                    <th>Status</th>
+                    <th>Node Name</th>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Uptime</th>
+                    <th>Load</th>
+                    <th>Network(B/s)</th>
+                    <th>Traffic</th>
+                    <th>CPU</th>
+                    <th>Memory</th>
+                    <th>Disk</th>
+                    <th>OS Type</th>
+                </tr>
+                <tr class="mobile-header">
+                    <th>Status</th>
+                    <th>Node Name</th>
+                    <th>CPU</th>
+                    <th>Memory</th>
+                    <th>Disk</th>
+                </tr>
+            </thead>
+            <tbody id="vps-data">
+            </tbody>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

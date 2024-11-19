@@ -1,0 +1,208 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    height: 40px;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-size: 13px;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.running {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.stopped {
+    background-color: #f44336;
+    color: white;
+}
+
+.error {
+    background-color: #ff9800;
+    color: white;
+}
+
+.progress-bar {
+    width: 60px;
+    height: 24px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-out;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 0.2s ease-out;
+}
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 12px;
+    font-weight: normal;
+    z-index: 1;
+}
+
+.fi {
+    font-size: 19px;
+    background-color: #f5f5f5;
+    display: inline-block;
+}
+
+td:nth-child(2),
+td:nth-child(3) {
+    text-align: left;
+}
+
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+    pointer-events: none;
+    white-space: nowrap;
+    bottom: calc(80% + 1px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip::after {
+    display: none;
+}
+
+td {
+    position: relative;
+}
+
+.system-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.system-icon.debian {
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original.svg');
+}
+
+.system-icon.ubuntu {
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg');
+}
+
+.system-icon.centos {
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/centos/centos-original.svg');
+}
+
+.system-icon.windows {
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg');
+}
+
+.system-icon.macos {
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg');
+}
+
+.system-icon.linux {
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg');
+}
+
+/* Hide mobile header by default */
+.mobile-header {
+    display: none;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    /* Hide desktop header, show mobile header */
+    .desktop-header {
+        display: none;
+    }
+
+    /* Reduce header height */
+    #vps-table thead th {
+        padding: 6px 4px;
+        height: 24px;
+        line-height: 1.2;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    /* Set column widths */
+    #vps-table th:nth-child(1),
+    #vps-table td:nth-child(1) {
+        width: 20%;
+    }
+
+    /* Adjust progress bar width */
+    .progress-bar {
+        width: 48px;
+    }
+}
+
+/* Landscape mode optimization */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    #vps-table {
+        font-size: 11px;
+    }
+}
+
+/* Add before mobile styles */
+#vps-table tr {
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Optimize mobile transition effects */
+@media screen and (max-width: 768px) {
+    #vps-table tr {
+        transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+}

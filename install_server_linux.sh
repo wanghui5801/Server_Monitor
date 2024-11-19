@@ -1,9 +1,13 @@
 #!/bin/bash
 
 
-command -v git >/dev/null 2>&1 || { echo "需要安装 git"; sudo apt-get update && sudo apt-get install -y git; }
-command -v python3 >/dev/null 2>&1 || { echo "需要安装 python3"; sudo apt-get install -y python3 python3-pip python3-venv; }
+# Check for required tools and packages
+command -v git >/dev/null 2>&1 || { echo "Need to install git"; sudo apt-get update && sudo apt-get install -y git; }
+command -v python3 >/dev/null 2>&1 || { echo "Need to install python3"; sudo apt-get install -y python3 python3-pip python3-venv; }
+command -v pip3 >/dev/null 2>&1 || { echo "Need to install pip3"; sudo apt-get install -y python3-pip; }
 
+# Ensure python3-venv is installed
+dpkg -l | grep python3-venv >/dev/null 2>&1 || { echo "Installing python3-venv"; sudo apt-get install -y python3-venv; }
 
 git clone https://github.com/wanghui5801/Server_Monitor.git vps-monitor
 cd vps-monitor

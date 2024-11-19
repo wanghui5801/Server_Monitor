@@ -32,6 +32,8 @@ WorkingDirectory=$(pwd)
 Environment="PATH=$(pwd)/venv/bin"
 ExecStart=$(pwd)/venv/bin/python server/app.py
 Restart=always
+StandardOutput=append:/var/log/vps-monitor-server.log
+StandardError=append:/var/log/vps-monitor-server.log
 
 [Install]
 WantedBy=multi-user.target

@@ -54,4 +54,4 @@ if __name__ == '__main__':
     # Start timeout check thread
     timeout_thread = threading.Thread(target=check_timeout, daemon=True)
     timeout_thread.start()
-    socketio.run(app, host='0.0.0.0', port=5000, debug=False)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)

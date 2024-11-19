@@ -59,23 +59,8 @@ def get_server_type():
             if os.path.exists(marker):
                 return "VPS"
     
-    # If no virtualization detected, check hardware specs
-    cpu_count = psutil.cpu_count()
-    total_memory = psutil.virtual_memory().total / (1024 * 1024 * 1024)  # GB
-    
-    # More strict criteria for dedicated servers
-    if cpu_count >= 4 and total_memory >= 8:
-        # Additional checks for dedicated server
-        try:
-            # Check if running on bare metal
-            with open('/sys/class/dmi/id/sys_vendor') as f:
-                vendor = f.read().strip().lower()
-                if any(x in vendor for x in ['dell', 'hp', 'lenovo', 'supermicro']):
-                    return "Dedicated Server"
-        except:
-            pass
-    
-    return "VPS"
+    # If no virtualization detected, it's a dedicated server
+    return "Dedicated Server"
 
 def get_location():
     """

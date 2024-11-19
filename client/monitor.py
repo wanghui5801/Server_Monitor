@@ -38,7 +38,29 @@ def get_server_type():
                     'microsoft corporation virtual machine',
                     'alibaba cloud ecs',
                     'virtual machine',
-                    'bochs'
+                    'bochs',
+                    'standard pc',
+                    'standard personal computer',
+                    'pc-q35',
+                    'q35',
+                    'pc-i440fx',
+                    'hetzner vserver',
+                    'vultr',
+                    'linode',
+                    'droplet',
+                    'scaleway',
+                    'ovhcloud',
+                    'proxmox',
+                    'parallels',
+                    'hyper-v',
+                    'oracle vm',
+                    'innotek',
+                    'cloud server',
+                    'virtual server',
+                    'vps',
+                    '(q35 + ich9',
+                    'ich9',
+                    'standard-pc'
                 ]
                 
                 if any(virt in product_name for virt in virt_products):

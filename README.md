@@ -3,8 +3,8 @@
 A lightweight server monitoring system that supports both Linux and Windows platforms, providing real-time monitoring of server status including CPU, memory, disk usage, and network traffic.
 
 <div style="display: flex; justify-content: space-between; margin: 20px 0;">
-    <img src="figure/figure1.png" width="60%" height="300px" alt="Desktop View">
-    <img src="figure/figure2.png" width="38%" height="300px" alt="Mobile View">
+    <img src="figure/figure1.png" width="60%" height="200px" alt="Desktop View">
+    <img src="figure/figure2.png" width="38%" height="200px" alt="Mobile View">
 </div>
 
 ## Features

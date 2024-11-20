@@ -113,7 +113,7 @@ function updateTable(data) {
         const memCell = row.cells[isMobile ? 3 : 9];
         const diskCell = row.cells[isMobile ? 4 : 10];
         
-        createTooltip(cpuCell, `${client.system_info.cpu.model}`);
+        createTooltip(cpuCell, `${client.system_info.cpu.model} (${client.system_info.cpu.cores} cores/${client.system_info.cpu.threads} threads)`);
         createTooltip(memCell, `${formatBytes(client.system_info.memory_total)}`);
         createTooltip(diskCell, `${formatBytes(client.system_info.disk_total)}`);
         

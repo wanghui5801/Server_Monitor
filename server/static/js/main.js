@@ -125,7 +125,12 @@ function updateTable(data) {
 }
 
 socket.on('status_update', (data) => {
-    const sortedData = Object.values(data).sort((a, b) => a.join_time - b.join_time);
+    const sortedData = Object.values(data).sort((a, b) => {
+        return a.node_name.localeCompare(b.node_name, undefined, {
+            sensitivity: 'base',
+            numeric: true
+        });
+    });
     updateTable(sortedData);
 });
 
@@ -133,6 +138,11 @@ socket.on('status_update', (data) => {
 fetch('/get_status')
     .then(response => response.json())
     .then(data => {
-        const sortedData = Object.values(data).sort((a, b) => a.join_time - b.join_time);
+        const sortedData = Object.values(data).sort((a, b) => {
+            return a.node_name.localeCompare(b.node_name, undefined, {
+                sensitivity: 'base',
+                numeric: true
+            });
+        });
         updateTable(sortedData);
     });

@@ -17,6 +17,7 @@ A lightweight server monitoring system that supports both Linux and Windows plat
 - Responsive web interface
 - Auto-reconnect mechanism
 - Custom node naming
+- Alphabetical node sorting (nodes are automatically sorted by name)
 
 ## Quick Installation
 
@@ -108,10 +109,11 @@ python client/monitor.py
 - Client update interval: 5 seconds
 - Client retry mechanism: 3 attempts with 30-second delay
 - Server timeout: 10 seconds for inactive clients
+- Node display: Automatically sorted alphabetically by node name
 
 ## Web Interface
 
-Access the monitoring dashboard at `http://your-server-ip:5000` after starting the server.
+Access the monitoring dashboard at `http://your-server-ip:5000` after starting the server. The nodes will be displayed in alphabetical order based on their names.
 
 ## License
 
